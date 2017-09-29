@@ -40,4 +40,103 @@ public struct Shop: CustomStringConvertible {
     }
 }
 
+public struct QueryCondition {
+    //キーワード
+    public var query: String? = nil
+    //店舗ID
+    public var gid: String? = nil
+    //ソート順
+    public enum Sort: String {
+        case score = "score"
+        case geo = "geo"
+    }
+    public var sort: Sort = .score
+    //緯度
+    public var lat: Double? = nil
+    //経度
+    public var lon: Double? = nil
+    //距離
+    public var dist: Double? = nil
+    
+    //検索パラメタディクショナリ
+    public var queryParams: [String: String] {
+        get {
+            var params = [String: String]()
+            //キーワード
+            if let unwrapped = query {
+                params["query"] = unwrapped
+            }
+            //店舗ID
+            if let unwrapped = gid {
+                params["gid"] = unwrapped
+            }
+            //ソート順
+            switch sort {
+            case .score:
+                params["sort"] = "score"
+            case .geo:
+                params["sort"] = "geo"
+            }
+            //緯度
+            if let unwrapped = lat {
+                params["lat"] = "\(unwrapped)"
+            }
+            //経度
+            if let unwrapped = lon {
+                params["lon"] = "\(unwrapped)"
+            }
+            //距離
+            if let unwrapped = dist {
+                params["dist"] = "\(unwrapped)"
+            }
+            //デバイス: mobile固定
+            params["device"] = "mobile"
+            //グルーピング: gid固定
+            params["group"] = "gid"
+            //画像があるデータのみを検索する: true固定
+            params["image"] = "true"
+            //業種コード: 01(グルメ)固定
+            params["gc"] = "01"
+            
+            return params
+            
+            
+            
+            
+            
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
 
