@@ -27,14 +27,17 @@ public struct Shop: CustomStringConvertible {
             var string = "\nGid: \(gid)\n"
             string += "Name: \(name)\n"
             string += "PhotoUrl: \(photoUrl)\n"
+            string += "Yomi: \(yomi)\n"
+            string += "Tel: \(tel)\n"
+            string += "Address: \(address)\n"
+            string += "Lat & Lon: (\(lat),\(lon))\n"
+            string += "CatchCopy: \(catchCopy)\n"
+            string += "hasCoupon: \(hasCoupon)\n"
+            string += "Station: \(station)\n"
+            
+            return string
         }
     }
-    
-    
-    
-    
-    
-    
 }
 
 
