@@ -10,6 +10,14 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+
+public extension Notification.Name {
+    //読込開始Notification
+    public static let apiLoadstart = Notification.Name("ApiLoadStart")
+    //読込完了Notification
+    public static let apiLoadComplete = Notification.Name("ApiLoadComplete")
+}
+
 public struct Shop: CustomStringConvertible {
     public var gid: String? = nil
     public var name: String? = nil
@@ -101,51 +109,15 @@ public struct QueryCondition {
             params["gc"] = "01"
             
             return params
-            
-            
-            
-            
-            
-            
-        }
+          }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 public class YahooLocalSearch {
     //Yahoo!ローカルサーチAPIのアプリケーションID
-    let apiID = "u219573"
+    let apiID = "dj0zaiZpPVdBU0FyZmh2bGZmZSZzPWNvbnN1bWVyc2VjcmV0Jng9ZDU-"
     //APIのベースURL
-    let apiUrl = "http:search.olp.yahooapis.jp/OpenLocalPlatform/V1/localSearch"
+    let apiUrl = "http://search.olp.yahooapis.jp/OpenLocalPlatform/V1/localSearch"
     //1ページのレコード数
     let perPage = 10
     //読み込み済みの店舗
@@ -163,7 +135,7 @@ public class YahooLocalSearch {
     //パラメタ無しのイニシャライザ
     public init(){}
     //検索条件をパラメタとして持つイニシャライザ
-    public init(conditon: QueryCondition){}
+    public init(condition: QueryCondition){ self.condition = condition}
     //APIからデータを読み込む
     //reset = trueならデータを捨てて最初から読み込む
     public func loadData(reset: Bool = false) {
@@ -179,6 +151,9 @@ public class YahooLocalSearch {
         params["output"] = "json"
         params["start"] = String(shops.count + 1)
         params["results"] = String(perPage)
+        
+        //API実行開始を通知する
+        NotificationCenter.default.post(name: .apiLoadstart, object: nil)
         //APIリクエスト実行
         let request = Alamofire.request(apiUrl, method: .get, parameters: params).response {
             //リクエストが完了した時に実行されるクロージャ
@@ -187,9 +162,19 @@ public class YahooLocalSearch {
             var json = JSON.null;
             if response.error == nil && response.data != nil {
                 json = SwiftyJSON.JSON(data: response.data!)
+                print(json)
             }
             //エラーがあれば終了
             if response.error != nil {
+                //API実行終了を通知する
+                var message = "Unknown error."
+                if let error = response.error {
+                    message = "\(error)"
+                }
+                NotificationCenter.default.post(
+                    name: .apiLoadComplete,
+                    object: nil,
+                    userInfo: ["error": message])
                 return
             }
             //店舗データをself.shopsに追加する
@@ -245,6 +230,9 @@ public class YahooLocalSearch {
             }else {
                 self.total = 0
             }
+            
+            //API実行終了を通知する
+            NotificationCenter.default.post(name: .apiLoadComplete, object: nil)
         }
     }
 }
