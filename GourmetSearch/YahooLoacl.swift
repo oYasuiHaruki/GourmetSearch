@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Alamofire
+import SwiftyJSON
 
 public struct Shop: CustomStringConvertible {
     public var gid: String? = nil
@@ -138,5 +140,114 @@ public struct QueryCondition {
     
     
 }
+
+public class YahooLocalSearch {
+    //Yahoo!ローカルサーチAPIのアプリケーションID
+    let apiID = "u219573"
+    //APIのベースURL
+    let apiUrl = "http:search.olp.yahooapis.jp/OpenLocalPlatform/V1/localSearch"
+    //1ページのレコード数
+    let perPage = 10
+    //読み込み済みの店舗
+    public var shops = [Shop]()
+    //全何件か
+    public var total = 0
+    //検索条件
+    var condition: QueryCondition = QueryCondition() {
+        //プロパティオブザーバ：新しい値がセットされた後に読み込み済みの店舗を捨てる
+        didSet {
+            shops = []
+            total = 0
+        }
+    }
+    //パラメタ無しのイニシャライザ
+    public init(){}
+    //検索条件をパラメタとして持つイニシャライザ
+    public init(conditon: QueryCondition){}
+    //APIからデータを読み込む
+    //reset = trueならデータを捨てて最初から読み込む
+    public func loadData(reset: Bool = false) {
+        //reset = trueなら今までの結果を捨てる
+        if reset {
+            shops = []
+            total = 0
+        }
+        //条件ディクショナリを取得
+        var params = condition.queryParams
+        //検索条件以外のAPIパラメタを設定
+        params["appid"] = apiID
+        params["output"] = "json"
+        params["start"] = String(shops.count + 1)
+        params["results"] = String(perPage)
+        //APIリクエスト実行
+        let request = Alamofire.request(apiUrl, method: .get, parameters: params).response {
+            //リクエストが完了した時に実行されるクロージャ
+            response in
+            
+            var json = JSON.null;
+            if response.error == nil && response.data != nil {
+                json = SwiftyJSON.JSON(data: response.data!)
+            }
+            //エラーがあれば終了
+            if response.error != nil {
+                return
+            }
+            //店舗データをself.shopsに追加する
+            for (key,item) in json["Feature"] {
+                var shop = Shop()
+                //店舗ID
+                shop.gid = item["Gid"].string
+                //店舗名: 'が&#39;という形でエンコードされているのでデコードする
+                shop.name = item["Name"].string?.replacingOccurrences(of: "&#39;", with: "")
+                //読み
+                shop.yomi = item["Property"]["Yomi"].string
+                //電話
+                shop.tel = item["Property"]["Tell"].string
+                //住所
+                shop.address = item["Property"]["Address"].string
+                //経度&緯度
+                if let geometry = item["Geometry"]["Coordinates"].string {
+                    let components = geometry.components(separatedBy: ",")
+                    //緯度
+                    shop.lat = (components[1] as NSString).doubleValue
+                    //経度
+                    shop.lon = (components[0] as NSString).doubleValue
+                }
+                //キャッチコピー
+                shop.catchCopy = item["Property"]["CatchCopy"].string
+                //店舗写真
+                shop.photoUrl = item["Property"]["LeadImage"].string
+                //クーポン有無
+                if item["Property"]["CouponFlag"].string == "true" {
+                    shop.hasCoupon = true
+                }
+                //駅
+                if let stations = item["Property"]["Station"].array {
+                    //路線名は「/」で結合されているので最初の一つを使う
+                    var line = ""
+                    if let lineString = stations[0]["Railway"].string {
+                        let lines = lineString.components(separatedBy: "/")
+                        line = lines[0]
+                    }
+                    if let station = stations[0]["Name"].string {
+                        //駅名と路線名があれば両方入れる
+                        shop.station = "\(line)\(station)"
+                    }else {
+                        //駅名がない場合、路線名のみを入れる
+                        shop.station = "\(line)"
+                    }
+                }
+                self.shops.append(shop)
+            }
+            //総件数を反映
+            if let total = json["ResultInfo"]["Total"].int {
+                self.total = total
+            }else {
+                self.total = 0
+            }
+        }
+    }
+}
+
 
 
