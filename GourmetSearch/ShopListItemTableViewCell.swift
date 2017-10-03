@@ -23,6 +23,14 @@ class ShopListItemTableViewCell: UITableViewCell {
     
     var shop: Shop = Shop() {
         didSet {
+            //URLがあれば画像を表示する
+            if let url = shop.photoUrl {
+                photo.sd_cancelCurrentAnimationImagesLoad()
+                photo.sd_setImage(
+                    with: URL(string: url),
+                    placeholderImage: UIImage(named: "loading"),
+                    options: .retryFailed)
+            }
             //店舗名をラベルに設定
             name.text = shop.name
             //クーポン表示

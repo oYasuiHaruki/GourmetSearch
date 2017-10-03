@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8F7270F6B3D914E56B53C829 /* Pods_GourmetSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155550C552670D7D72804F2 /* Pods_GourmetSearch.framework */; };
+		F91B296B1F8361B30038EDB1 /* SearchTopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91B296A1F8361B30038EDB1 /* SearchTopTableViewController.swift */; };
+		F91B296D1F8366E10038EDB1 /* FreewordtableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91B296C1F8366E10038EDB1 /* FreewordtableViewCell.swift */; };
 		F926E9A11F7D23B0007B88B2 /* ShopListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F926E9A01F7D23B0007B88B2 /* ShopListItemTableViewCell.swift */; };
 		F951AF9E1F7D060C0032925C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F951AF9D1F7D060C0032925C /* AppDelegate.swift */; };
 		F951AFA01F7D060C0032925C /* ShopListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F951AF9F1F7D060C0032925C /* ShopListViewController.swift */; };
@@ -21,6 +23,8 @@
 		2DB9FB84DE56A6C5B96BE796 /* Pods-GourmetSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmetSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GourmetSearch/Pods-GourmetSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		4CB51D47F62394A0BCCF7AE5 /* Pods-GourmetSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmetSearch.release.xcconfig"; path = "Pods/Target Support Files/Pods-GourmetSearch/Pods-GourmetSearch.release.xcconfig"; sourceTree = "<group>"; };
 		A155550C552670D7D72804F2 /* Pods_GourmetSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GourmetSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F91B296A1F8361B30038EDB1 /* SearchTopTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTopTableViewController.swift; sourceTree = "<group>"; };
+		F91B296C1F8366E10038EDB1 /* FreewordtableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreewordtableViewCell.swift; sourceTree = "<group>"; };
 		F926E99B1F7D082D007B88B2 /* GourmetSearch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GourmetSearch-Bridging-Header.h"; sourceTree = "<group>"; };
 		F926E99F1F7D09CC007B88B2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F926E9A01F7D23B0007B88B2 /* ShopListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopListItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 			children = (
 				F926E9A01F7D23B0007B88B2 /* ShopListItemTableViewCell.swift */,
 				F951AF9F1F7D060C0032925C /* ShopListViewController.swift */,
+				F91B296A1F8361B30038EDB1 /* SearchTopTableViewController.swift */,
+				F91B296C1F8366E10038EDB1 /* FreewordtableViewCell.swift */,
 			);
 			name = ShopList;
 			sourceTree = "<group>";
@@ -248,9 +254,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F926E9A11F7D23B0007B88B2 /* ShopListItemTableViewCell.swift in Sources */,
+				F91B296D1F8366E10038EDB1 /* FreewordtableViewCell.swift in Sources */,
 				F951AFA01F7D060C0032925C /* ShopListViewController.swift in Sources */,
 				F9C153031F7E3D24004B50B0 /* YahooLoacl.swift in Sources */,
 				F951AF9E1F7D060C0032925C /* AppDelegate.swift in Sources */,
+				F91B296B1F8361B30038EDB1 /* SearchTopTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -122,6 +122,8 @@ public class YahooLocalSearch {
     let perPage = 10
     //読み込み済みの店舗
     public var shops = [Shop]()
+    //trueだと読込中
+    var loading = false
     //全何件か
     public var total = 0
     //検索条件
@@ -139,11 +141,18 @@ public class YahooLocalSearch {
     //APIからデータを読み込む
     //reset = trueならデータを捨てて最初から読み込む
     public func loadData(reset: Bool = false) {
+        //読込中なら何もせずに帰る
+        if loading { return }
+        
         //reset = trueなら今までの結果を捨てる
         if reset {
             shops = []
             total = 0
         }
+        
+        //API実行中フラグをON
+        loading = true
+        
         //条件ディクショナリを取得
         var params = condition.queryParams
         //検索条件以外のAPIパラメタを設定
@@ -162,10 +171,11 @@ public class YahooLocalSearch {
             var json = JSON.null;
             if response.error == nil && response.data != nil {
                 json = SwiftyJSON.JSON(data: response.data!)
-                print(json)
             }
             //エラーがあれば終了
             if response.error != nil {
+                //API実行中フラグをOFF
+                self.loading = false
                 //API実行終了を通知する
                 var message = "Unknown error."
                 if let error = response.error {
@@ -230,7 +240,8 @@ public class YahooLocalSearch {
             }else {
                 self.total = 0
             }
-            
+            //API実行中フラグをOFF
+            self.loading = false
             //API実行終了を通知する
             NotificationCenter.default.post(name: .apiLoadComplete, object: nil)
         }

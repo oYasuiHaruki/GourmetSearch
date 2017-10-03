@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Oe1-HP-aGt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,85 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Search Top Table View Controller-->
+        <scene sceneID="VOz-Xi-l8k">
+            <objects>
+                <tableViewController id="5FH-I4-XCT" userLabel="Search Top Table View Controller" customClass="SearchTopTableViewController" customModule="GourmetSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aBY-6w-X0X">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Freeword" id="dqR-xd-OyS" customClass="FreewordtableViewCell" customModule="GourmetSearch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dqR-xd-OyS" id="4K2-j2-5Tt">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="フリーワード検索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Gp-gs-2fm">
+                                            <rect key="frame" x="16" y="11.5" width="140" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="140" id="B7C-fy-HcU"/>
+                                                <constraint firstAttribute="height" constant="21" id="HWX-h3-F9B"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JsW-tW-Gak">
+                                            <rect key="frame" x="172" y="7" width="187" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="AgV-UL-zwz"/>
+                                            </constraints>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="JsW-tW-Gak" firstAttribute="centerY" secondItem="4K2-j2-5Tt" secondAttribute="centerY" id="efQ-uT-elb"/>
+                                        <constraint firstItem="JsW-tW-Gak" firstAttribute="leading" secondItem="1Gp-gs-2fm" secondAttribute="trailing" constant="16" id="fQq-RI-hVG"/>
+                                        <constraint firstItem="1Gp-gs-2fm" firstAttribute="leading" secondItem="4K2-j2-5Tt" secondAttribute="leading" constant="16" id="hek-oe-4FD"/>
+                                        <constraint firstAttribute="trailing" secondItem="JsW-tW-Gak" secondAttribute="trailing" constant="16" id="lId-f4-qyU"/>
+                                        <constraint firstItem="1Gp-gs-2fm" firstAttribute="centerY" secondItem="4K2-j2-5Tt" secondAttribute="centerY" id="wog-1W-YrE"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="freeword" destination="JsW-tW-Gak" id="1ws-MM-05h"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5FH-I4-XCT" id="NM0-JH-0SE"/>
+                            <outlet property="delegate" destination="5FH-I4-XCT" id="NZs-Lu-AZ6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="店舗検索" id="L9h-9f-sO4"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="PushShopList" id="fc2-Sv-1eN"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2hm-xV-9uV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-727.20000000000005" y="58.920539730134934"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ozg-eL-9A2">
+            <objects>
+                <navigationController id="Oe1-HP-aGt" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xnY-KN-vVo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="5FH-I4-XCT" kind="relationship" relationship="rootViewController" id="BdB-QP-eVr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b9S-z3-qfE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1666" y="59"/>
+        </scene>
         <!--ShopListViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -23,7 +102,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3eu-GJ-5qM">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShopListItem" rowHeight="100" id="06v-cy-z0B" customClass="ShopListItemTableViewCell" customModule="GourmetSearch" customModuleProvider="target">
@@ -124,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
+            <point key="canvasLocation" x="55" y="59"/>
         </scene>
     </scenes>
 </document>

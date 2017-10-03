@@ -14,12 +14,18 @@ class ShopListViewController: UIViewController, UITableViewDelegate, UITableView
     
     var yls: YahooLocalSearch = YahooLocalSearch()
     var loadDataObserver: NSObjectProtocol?
+    var refreshObsever: NSObjectProtocol?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        //Pull to Refreshコントロール初期化
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(ShopListViewController.onRefresh(_:)), for: .valueChanged)
+        self.tableView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,7 +42,7 @@ class ShopListViewController: UIViewController, UITableViewDelegate, UITableView
             using: {
                 (notification) in
                 
-//                print("APIリクエスト完了")
+                self.tableView.reloadData()
                 
                 //エラーがあればダイアログを開く
                 if notification.userInfo != nil {
@@ -66,7 +72,28 @@ class ShopListViewController: UIViewController, UITableViewDelegate, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    // MARK: - アプリケーションロジック
+    
+    //Pull to Refresh
+    func onRefresh(_ refreshControl: UIRefreshControl){
+        //UIRefreshControlを読込中状態にする
+        refreshControl.beginRefreshing()
+        //終了通知を受信したらUIRefreshControlを停止する
+        refreshObsever = NotificationCenter.default.addObserver(
+            forName: .apiLoadComplete,
+            object: nil,
+            queue: nil,
+            using: {
+                notification in
+                //通知の待受を終了
+                NotificationCenter.default.removeObserver(self.refreshObsever!)
+                //UIRefreshControlを停止する
+                refreshControl.endRefreshing()
+        })
+        //再取得
+        yls.loadData(reset: true)
+    }
     
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -76,20 +103,35 @@ class ShopListViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        if section == 0 {
+            //セルの数は店舗数
+            return yls.shops.count
+        }
+        //通常はここに到達しない
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ShopListItem") as! ShopListItemTableViewCell
-            cell.name.text = "\(indexPath.row)"
+            if indexPath.row < yls.shops.count {
+                //rowが店舗数以下なら店舗セルを返す
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ShopListItem") as! ShopListItemTableViewCell
+                cell.shop = yls.shops[indexPath.row]
+                
+                //まだ残りがあって、現在の列の下の店舗が3つ以下になったら追加情報
+                if yls.shops.count < yls.total {
+                    if yls.shops.count - indexPath.row <= 4 {
+                        yls.loadData()
+                    }
+                }
+                
+                
             return cell
+            }
         }
+        //通常はここに到達しない
         return UITableViewCell()
     }
-    
-    
-
 }
 
