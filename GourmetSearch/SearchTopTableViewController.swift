@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchTopTableViewController: UITableViewController {
+class SearchTopTableViewController: UITableViewController, UITextFieldDelegate {
     var freeword: UITextField? = nil
 
     override func viewDidLoad() {
@@ -55,14 +55,26 @@ class SearchTopTableViewController: UITableViewController {
         
         if indexPath.section == 0 && indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Freeword") as! FreewordtableViewCell
-            //UITextTableViewCell
+            //UITextFieldへの参照を保存しておく
             freeword = cell.freeword
+            //UITextFielddelegateを自身に設定
+            cell.freeword.delegate = self
+            //タップを無視
+            cell.selectionStyle = .none
+            
             
             return cell
         }
         return UITableViewCell()
     }
 
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        performSegue(withIdentifier: "PushShopList", sender: self)
+        
+        return true
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -99,14 +111,36 @@ class SearchTopTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PushShopList" {
+            let vc = segue.destination as! ShopListViewController
+            vc.yls.condition.query = freeword?.text
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
+    @IBAction func onTap(_ sender: UITapGestureRecognizer) {
+        freeword?.resignFirstResponder()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
 
 }
