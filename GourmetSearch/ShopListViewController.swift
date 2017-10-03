@@ -36,7 +36,7 @@ class ShopListViewController: UIViewController, UITableViewDelegate, UITableView
             using: {
                 (notification) in
                 
-                print("APIリクエスト完了")
+//                print("APIリクエスト完了")
                 
                 //エラーがあればダイアログを開く
                 if notification.userInfo != nil {
