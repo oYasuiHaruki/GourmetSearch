@@ -197,7 +197,7 @@ public class YahooLocalSearch {
                 //読み
                 shop.yomi = item["Property"]["Yomi"].string
                 //電話
-                shop.tel = item["Property"]["Tell"].string
+                shop.tel = item["Property"]["Tel1"].string
                 //住所
                 shop.address = item["Property"]["Address"].string
                 //経度&緯度
