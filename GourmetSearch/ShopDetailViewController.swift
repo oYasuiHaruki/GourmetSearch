@@ -46,6 +46,23 @@ class ShopDetailViewController: UIViewController, UIScrollViewDelegate {
         //お気に入り状態をボタンラベルに反映
         updateFavoriteButton()
         
+        //地図
+        if let lat = shop.lat {
+            if let lon = shop.lon {
+                //地図の表示範囲を指定
+                let cllc = CLLocationCoordinate2DMake(lat, lon)
+                let mkcr = MKCoordinateRegionMakeWithDistance(cllc, 200, 200)
+                map.setRegion(mkcr, animated: false)
+                //ピンを設定
+                let pin = MKPointAnnotation()
+                pin.coordinate = cllc
+                map.addAnnotation(pin)
+                
+                //お気に入り状態をボタンラベルに反映
+                updateFavoriteButton()
+            }
+        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -112,7 +129,7 @@ class ShopDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func addressTapped(_ sender: UIButton) {
-        print("addressTapped")
+        performSegue(withIdentifier: "PushMapDetail", sender: nil)
     }
     
     @IBAction func favoriteTapped(_ sender: UIButton) {
@@ -135,14 +152,21 @@ class ShopDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
 
-    /*
-    // MARK: - Navigation
+    
+     //MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "PushMapDetail" {
+            let vc = segue.destination as! ShopMapDetailViewController
+            vc.shop = shop
+        }
     }
-    */
+    
+    
+    
+    
+    
+ 
 
 }

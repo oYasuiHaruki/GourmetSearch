@@ -14,6 +14,8 @@
 		F91B29711F84A44A0038EDB1 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91B29701F84A44A0038EDB1 /* Favorite.swift */; };
 		F91B29741F84ADCE0038EDB1 /* SearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91B29731F84ADCE0038EDB1 /* SearchNavigationController.swift */; };
 		F91B29761F84ADF00038EDB1 /* FavoriteNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91B29751F84ADF00038EDB1 /* FavoriteNavigationController.swift */; };
+		F91B29781F877C110038EDB1 /* ShopMapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91B29771F877C110038EDB1 /* ShopMapDetailViewController.swift */; };
+		F91B297A1F877F7F0038EDB1 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91B29791F877F7F0038EDB1 /* LocationService.swift */; };
 		F926E9A11F7D23B0007B88B2 /* ShopListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F926E9A01F7D23B0007B88B2 /* ShopListItemTableViewCell.swift */; };
 		F951AF9E1F7D060C0032925C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F951AF9D1F7D060C0032925C /* AppDelegate.swift */; };
 		F951AFA01F7D060C0032925C /* ShopListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F951AF9F1F7D060C0032925C /* ShopListViewController.swift */; };
@@ -33,6 +35,8 @@
 		F91B29701F84A44A0038EDB1 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		F91B29731F84ADCE0038EDB1 /* SearchNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNavigationController.swift; sourceTree = "<group>"; };
 		F91B29751F84ADF00038EDB1 /* FavoriteNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteNavigationController.swift; sourceTree = "<group>"; };
+		F91B29771F877C110038EDB1 /* ShopMapDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopMapDetailViewController.swift; sourceTree = "<group>"; };
+		F91B29791F877F7F0038EDB1 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		F926E99B1F7D082D007B88B2 /* GourmetSearch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GourmetSearch-Bridging-Header.h"; sourceTree = "<group>"; };
 		F926E99F1F7D09CC007B88B2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F926E9A01F7D23B0007B88B2 /* ShopListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopListItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 				F91B296A1F8361B30038EDB1 /* SearchTopTableViewController.swift */,
 				F91B296C1F8366E10038EDB1 /* FreewordtableViewCell.swift */,
 				F91B296E1F840BDC0038EDB1 /* ShopDetailViewController.swift */,
+				F91B29771F877C110038EDB1 /* ShopMapDetailViewController.swift */,
 			);
 			name = ShopList;
 			sourceTree = "<group>";
@@ -135,6 +140,7 @@
 			children = (
 				F9C153021F7E3D24004B50B0 /* YahooLoacl.swift */,
 				F91B29701F84A44A0038EDB1 /* Favorite.swift */,
+				F91B29791F877F7F0038EDB1 /* LocationService.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -273,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F91B29781F877C110038EDB1 /* ShopMapDetailViewController.swift in Sources */,
 				F926E9A11F7D23B0007B88B2 /* ShopListItemTableViewCell.swift in Sources */,
 				F91B29711F84A44A0038EDB1 /* Favorite.swift in Sources */,
 				F91B296D1F8366E10038EDB1 /* FreewordtableViewCell.swift in Sources */,
@@ -282,6 +289,7 @@
 				F951AF9E1F7D060C0032925C /* AppDelegate.swift in Sources */,
 				F91B29761F84ADF00038EDB1 /* FavoriteNavigationController.swift in Sources */,
 				F91B296B1F8361B30038EDB1 /* SearchTopTableViewController.swift in Sources */,
+				F91B297A1F877F7F0038EDB1 /* LocationService.swift in Sources */,
 				F91B29741F84ADCE0038EDB1 /* SearchNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
