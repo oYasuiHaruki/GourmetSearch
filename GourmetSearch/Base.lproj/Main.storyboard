@@ -87,12 +87,14 @@
                     <navigationItem key="navigationItem" title="店舗検索" id="L9h-9f-sO4"/>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="PushShopList" id="fc2-Sv-1eN"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="PushShopListFromHere" id="iLc-5R-9Ay"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hm-xV-9uV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="bY8-fF-bnQ">
                     <connections>
                         <action selector="onTap:" destination="5FH-I4-XCT" id="vkL-q7-xof"/>
+                        <outlet property="delegate" destination="5FH-I4-XCT" id="UzZ-To-Ueu"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -254,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="55" y="59"/>
+            <point key="canvasLocation" x="119" y="193"/>
         </scene>
         <!--Shop Detail View Controller-->
         <scene sceneID="scZ-Ps-AoS">
@@ -388,8 +390,8 @@
                                                             <constraint firstAttribute="height" constant="32" id="yHG-Ch-QtW"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tG8-4H-Bfx" userLabel="お気に入りラベル">
-                                                        <rect key="frame" x="8" y="-0.5" width="42" height="44"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVj-Mi-8Ix" userLabel="お気に入りラベル">
+                                                        <rect key="frame" x="48" y="0.0" width="287" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -400,12 +402,13 @@
                                                     <constraint firstItem="IMe-NL-OAI" firstAttribute="leading" secondItem="BID-I1-8D0" secondAttribute="leading" constant="8" id="0pJ-CI-qkr"/>
                                                     <constraint firstItem="IMe-NL-OAI" firstAttribute="centerY" secondItem="BID-I1-8D0" secondAttribute="centerY" id="7Bu-Wq-w2U"/>
                                                     <constraint firstAttribute="width" constant="343" id="Ajk-fN-5eZ"/>
-                                                    <constraint firstItem="tG8-4H-Bfx" firstAttribute="centerY" secondItem="BID-I1-8D0" secondAttribute="centerY" id="CYR-mE-3hF"/>
                                                     <constraint firstAttribute="trailing" secondItem="ak9-bi-4CA" secondAttribute="trailing" id="Jpx-c3-DmX"/>
                                                     <constraint firstAttribute="height" constant="44" id="LVF-7o-rNc"/>
-                                                    <constraint firstItem="tG8-4H-Bfx" firstAttribute="leading" secondItem="BID-I1-8D0" secondAttribute="leading" constant="8" id="hJ9-WM-VlJ"/>
+                                                    <constraint firstItem="eVj-Mi-8Ix" firstAttribute="centerY" secondItem="BID-I1-8D0" secondAttribute="centerY" id="W3a-8L-av9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="eVj-Mi-8Ix" secondAttribute="trailing" constant="8" id="Z5T-JU-c7E"/>
+                                                    <constraint firstItem="eVj-Mi-8Ix" firstAttribute="leading" secondItem="IMe-NL-OAI" secondAttribute="trailing" constant="8" id="cpf-fe-qfp"/>
                                                     <constraint firstItem="ak9-bi-4CA" firstAttribute="height" secondItem="BID-I1-8D0" secondAttribute="height" id="iOy-zN-fMA"/>
-                                                    <constraint firstItem="tG8-4H-Bfx" firstAttribute="height" secondItem="BID-I1-8D0" secondAttribute="height" id="qw9-nu-ZHw"/>
+                                                    <constraint firstItem="eVj-Mi-8Ix" firstAttribute="height" secondItem="BID-I1-8D0" secondAttribute="height" id="uze-50-akH"/>
                                                     <constraint firstItem="ak9-bi-4CA" firstAttribute="leading" secondItem="BID-I1-8D0" secondAttribute="leading" id="vQz-8V-Bh0"/>
                                                     <constraint firstItem="ak9-bi-4CA" firstAttribute="top" secondItem="BID-I1-8D0" secondAttribute="top" id="yoF-nh-e5D"/>
                                                 </constraints>
@@ -464,7 +467,7 @@
                         <outlet property="address" destination="qBO-o5-ppo" id="fBr-5t-9TW"/>
                         <outlet property="addressContainerHeight" destination="Wb7-d2-yGO" id="jc8-Sn-34L"/>
                         <outlet property="favoriteIcon" destination="IMe-NL-OAI" id="sap-te-rcm"/>
-                        <outlet property="favoriteLabel" destination="tG8-4H-Bfx" id="UTe-M3-mdj"/>
+                        <outlet property="favoriteLabel" destination="eVj-Mi-8Ix" id="hnc-uk-I2j"/>
                         <outlet property="map" destination="dNM-5V-n9a" id="fdf-La-q4d"/>
                         <outlet property="name" destination="NLC-rV-bKb" id="28Y-Hc-5oY"/>
                         <outlet property="nameHeight" destination="Mz2-1u-nfI" id="g3q-yo-g9D"/>
@@ -526,6 +529,6 @@
         <image name="tabbar-search" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JqR-ST-RuV"/>
+        <segue reference="iLc-5R-9Ay"/>
     </inferredMetricsTieBreakers>
 </document>

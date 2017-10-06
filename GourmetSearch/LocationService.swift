@@ -27,7 +27,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
     private let nc = NotificationCenter.default
     
     //位置情報がONになっていないダイアログ
-    public var locationServiceDesabledAlert: UIAlertController {
+    public var locationServiceDisabledAlert: UIAlertController {
         get {
             let alert = UIAlertController(title: "位置情報が取得できません", message: "設定からプライバシー　→　位置情報画面を開いてGourmetSearchの位置情報の許可を「このAppの使用中のみ許可」と設定せしてください。", preferredStyle: .alert)
             alert.addAction(
