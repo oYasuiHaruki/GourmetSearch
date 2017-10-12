@@ -33,6 +33,7 @@ public struct Shop: CustomStringConvertible {
     
     
     public var description: String {
+        //descriptionはまだ定義されていない。計算処理をされたのちに値が代入される。getに書いてあるreturnの値を返してくれる。
         get {
             var string = "\nGid: \(gid)\n"
             string += "Name: \(name)\n"
@@ -69,6 +70,7 @@ public struct QueryCondition {
     public var dist: Double? = nil
     
     //検索パラメタディクショナリ
+    //コンピューテッドプロパティ
     public var queryParams: [String: String] {
         get {
             var params = [String: String]()
@@ -164,6 +166,8 @@ public class YahooLocalSearch {
         //API実行開始を通知する
         NotificationCenter.default.post(name: .apiLoadstart, object: nil)
         //APIリクエスト実行
+        //Alamofireのrequestメソッドを実行
+        //HTTPメソッドはgetである。
         let request = Alamofire.request(apiUrl, method: .get, parameters: params).response {
             //リクエストが完了した時に実行されるクロージャ
             response in
@@ -192,7 +196,7 @@ public class YahooLocalSearch {
                 var shop = Shop()
                 //店舗ID
                 shop.gid = item["Gid"].string
-                //店舗名: 'が&#39;という形でエンコードされているのでデコードする
+                //店舗名: 「'」が「&#39;」という形でエンコードされているのでデコード（変換）する
                 shop.name = item["Name"].string?.replacingOccurrences(of: "&#39;", with: "")
                 //読み
                 shop.yomi = item["Property"]["Yomi"].string

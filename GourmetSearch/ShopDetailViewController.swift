@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ShopDetailViewController: UIViewController, UIScrollViewDelegate {
+class ShopDetailViewController: UIViewController, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var photo: UIImageView!
@@ -25,6 +25,8 @@ class ShopDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var addressContainerHeight: NSLayoutConstraint!
     
     var shop = Shop()
+    
+    let ipc = UIImagePickerController()
   
     
     
@@ -62,6 +64,12 @@ class ShopDetailViewController: UIViewController, UIScrollViewDelegate {
                 updateFavoriteButton()
             }
         }
+        
+        //UIImagePickerControllerDelegateの設定
+        //Delegate設定
+        ipc.delegate = self
+        //トリミングなどを行う
+        ipc.allowsEditing = true
         
         // Do any additional setup after loading the view.
     }
@@ -101,6 +109,17 @@ class ShopDetailViewController: UIViewController, UIScrollViewDelegate {
             photo.frame.size.height = 200 - scrollOffset
         }
     }
+    
+    // MARK: - UIImagePickerControllerDelegate
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        ipc.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        ipc.dismiss(animated: true, completion: nil)
+    }
+    
     
     
     // MARK: - アプリケーションロジック
@@ -143,6 +162,38 @@ class ShopDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     
+    @IBAction func addPhotoTapped(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        //カメラが使えるか確認して使えるなら「写真を撮る」選択肢を表示
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alert.addAction(
+                UIAlertAction(title: "写真を撮る", style: .default, handler: {
+                    action in
+                    //ソースはカメラ
+                    self.ipc.sourceType = .camera
+                    //カメラUIを起動
+                    self.present(self.ipc, animated: true, completion: nil)
+                })
+            )
+        }
+        
+        //「写真を選択」ボタンはいつでも使える
+        alert.addAction(
+            UIAlertAction(title: "写真を選択", style: .default, handler: {
+                action in
+                //ソースは写真選択
+                self.ipc.sourceType = .photoLibrary
+                //写真選択UIを起動
+                self.present(self.ipc, animated: true, completion: nil)
+            })
+        )
+        alert.addAction(
+            UIAlertAction(title: "キャンセル", style: .cancel, handler: {
+                action in
+            })
+        )
+        present(alert, animated: true, completion: nil)
+    }
     
     
     
